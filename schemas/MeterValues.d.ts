@@ -13,15 +13,17 @@ export interface MeterValuesRequest {
     sampledValue: {
       value: string;
       context?:
-        | "Interruption.Begin"
-        | "Interruption.End"
-        | "Sample.Clock"
-        | "Sample.Periodic"
-        | "Transaction.Begin"
-        | "Transaction.End"
-        | "Trigger"
-        | "Other";
-      format?: "Raw" | "SignedData";
+        | null
+        | (
+            | "Interruption.Begin"
+            | "Interruption.End"
+            | "Sample.Clock"
+            | "Sample.Periodic"
+            | "Transaction.Begin"
+            | "Transaction.End"
+            | "Trigger"
+            | "Other");
+      format?: null | ("Raw" | "SignedData");
       measurand?:
         | "Energy.Active.Export.Register"
         | "Energy.Active.Import.Register"
@@ -45,8 +47,8 @@ export interface MeterValuesRequest {
         | "Temperature"
         | "SoC"
         | "RPM";
-      phase?: "L1" | "L2" | "L3" | "N" | "L1-N" | "L2-N" | "L3-N" | "L1-L2" | "L2-L3" | "L3-L1";
-      location?: "Cable" | "EV" | "Inlet" | "Outlet" | "Body";
+      phase?: null | ("L1" | "L2" | "L3" | "N" | "L1-N" | "L2-N" | "L3-N" | "L1-L2" | "L2-L3" | "L3-L1");
+      location?: null | ("Cable" | "EV" | "Inlet" | "Outlet" | "Body");
       unit?:
         | "Wh"
         | "kWh"
