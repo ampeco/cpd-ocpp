@@ -150,6 +150,7 @@ var CentralSystem = function () {
       };
 
       socket.on('close', function (err) {
+        debug(err);
         var index = _this2.clients.indexOf(client);
         _this2.clients.splice(index, 1);
       });

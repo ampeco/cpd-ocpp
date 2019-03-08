@@ -73,6 +73,7 @@ export default class CentralSystem {
     connection.onRequest = (command) => this.onRequest(client, command);
 
     socket.on('close', (err) => {
+      debug(err);
       const index = this.clients.indexOf(client);
       this.clients.splice(index, 1);
     });

@@ -1,6 +1,6 @@
 {
-  "name": "ocpp-eliftech",
-  "version": "1.0.1",
+  "name": "@ampeco/ocpp-eliftech",
+  "version": "1.0.3",
   "description": "OCPP 1.6: Open Charge Point Protocol",
   "main": "dist/index.js",
   "scripts": {
@@ -13,17 +13,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elifTech/cpd-ocpp.git"
+    "url": "git+https://github.com/ampeco/cpd-ocpp.git"
   },
-  "author": "Vitalii Savchuk <esvit666@gmail.com>",
+  "author": "Martin Spasov <m@ampeco.global>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/elifTech/cpd-ocpp/issues"
+    "url": "https://github.com/ampeco/cpd-ocpp/issues"
   },
-  "homepage": "https://github.com/elifTech/cpd-ocpp#readme",
+  "homepage": "https://github.com/ampeco/cpd-ocpp#readme",
   "dependencies": {
+    "@types/express": "^4.16.1",
     "debug": "^3.1.0",
     "enjoi": "^3.2.2",
+    "express": "^4.16.4",
     "joi": "^13.1.2",
     "joi-date-extensions": "^1.1.1",
     "uuid": "^3.2.1",
@@ -75,5 +77,9 @@
         "always"
       ]
     }
+  },
+  "directories": {
+    "example": "examples",
+    "test": "tests"
   }
 }
