@@ -71,15 +71,14 @@ class Connection {
           responseData = await this.onRequest(commandRequest);
           responseObj = commandRequest.createResponse(responseData);
         } catch (err) {
-          console.log(err.stack);
           return await this.sendError(messageId, err);
         }
 
-        try {
-          await this.sendMessage(messageId, responseObj, CALLRESULT_MESSAGE);
-        } catch (err) {
-          await this.sendError(messageId, err);
-        }
+        // try {
+        await this.sendMessage(messageId, responseObj, CALLRESULT_MESSAGE);
+        // } catch (err) {
+        //   await this.sendError(messageId, err);
+        // }
         break;
       case CALLRESULT_MESSAGE:
         // response
