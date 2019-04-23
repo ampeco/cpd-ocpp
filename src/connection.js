@@ -71,6 +71,7 @@ class Connection {
           responseData = await this.onRequest(commandRequest);
           responseObj = commandRequest.createResponse(responseData);
         } catch (err) {
+          console.log(err.stack);
           return await this.sendError(messageId, err);
         }
 

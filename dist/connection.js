@@ -120,7 +120,7 @@ var Connection = exports.Connection = function () {
 
               case 14:
                 _context.t1 = messageType;
-                _context.next = _context.t1 === _constants.CALL_MESSAGE ? 17 : _context.t1 === _constants.CALLRESULT_MESSAGE ? 53 : _context.t1 === _constants.CALLERROR_MESSAGE ? 60 : 67;
+                _context.next = _context.t1 === _constants.CALL_MESSAGE ? 17 : _context.t1 === _constants.CALLRESULT_MESSAGE ? 54 : _context.t1 === _constants.CALLERROR_MESSAGE ? 61 : 68;
                 break;
 
               case 17:
@@ -162,83 +162,85 @@ var Connection = exports.Connection = function () {
                 responseData = _context.sent;
 
                 responseObj = commandRequest.createResponse(responseData);
-                _context.next = 43;
+                _context.next = 44;
                 break;
 
               case 38:
                 _context.prev = 38;
                 _context.t3 = _context['catch'](31);
-                _context.next = 42;
+
+                console.log(_context.t3.stack);
+                _context.next = 43;
                 return this.sendError(messageId, _context.t3);
 
-              case 42:
+              case 43:
                 return _context.abrupt('return', _context.sent);
 
-              case 43:
-                _context.prev = 43;
-                _context.next = 46;
+              case 44:
+                _context.prev = 44;
+                _context.next = 47;
                 return this.sendMessage(messageId, responseObj, _constants.CALLRESULT_MESSAGE);
 
-              case 46:
-                _context.next = 52;
+              case 47:
+                _context.next = 53;
                 break;
 
-              case 48:
-                _context.prev = 48;
-                _context.t4 = _context['catch'](43);
-                _context.next = 52;
+              case 49:
+                _context.prev = 49;
+                _context.t4 = _context['catch'](44);
+                _context.next = 53;
                 return this.sendError(messageId, _context.t4);
 
-              case 52:
-                return _context.abrupt('break', 68);
-
               case 53:
+                return _context.abrupt('break', 69);
+
+              case 54:
                 // response
                 debug('>> ' + this.url + ': ' + message);
 
                 _requests$messageId = (0, _slicedToArray3.default)(this.requests[messageId], 1), responseCallback = _requests$messageId[0];
 
                 if (responseCallback) {
-                  _context.next = 57;
+                  _context.next = 58;
                   break;
                 }
 
                 throw new Error('Response for unknown message ' + messageId);
 
-              case 57:
+              case 58:
                 delete this.requests[messageId];
 
                 responseCallback(commandNameOrPayload);
-                return _context.abrupt('break', 68);
+                return _context.abrupt('break', 69);
 
-              case 60:
+              case 61:
                 // error response
                 debug('>> ' + this.url + ': ' + message);
 
                 if (this.requests[messageId]) {
-                  _context.next = 63;
+                  _context.next = 64;
                   break;
                 }
 
                 throw new Error('Response for unknown message ' + messageId);
 
-              case 63:
+              case 64:
                 _requests$messageId2 = (0, _slicedToArray3.default)(this.requests[messageId], 2), rejectCallback = _requests$messageId2[1];
 
                 delete this.requests[messageId];
 
                 rejectCallback(new _ocppError2.default(commandNameOrPayload, commandPayload, errorDetails));
-                return _context.abrupt('break', 68);
-
-              case 67:
-                throw new Error('Wrong message type ' + messageType);
+                return _context.abrupt('break', 69);
 
               case 68:
+                throw new Error('Wrong message type ' + messageType);
+
+              case 69:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 11], [22, 26], [31, 38], [43, 48]]);
+        }, _callee, this, [[1, 11], [22, 26], [31, 38], [44, 49]]);
       }));
 
       function onMessage(_x2) {
