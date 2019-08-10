@@ -120,7 +120,7 @@ var Connection = exports.Connection = function () {
 
               case 14:
                 _context.t1 = messageType;
-                _context.next = _context.t1 === _constants.CALL_MESSAGE ? 17 : _context.t1 === _constants.CALLRESULT_MESSAGE ? 54 : _context.t1 === _constants.CALLERROR_MESSAGE ? 61 : 68;
+                _context.next = _context.t1 === _constants.CALL_MESSAGE ? 17 : _context.t1 === _constants.CALLRESULT_MESSAGE ? 46 : _context.t1 === _constants.CALLERROR_MESSAGE ? 53 : 60;
                 break;
 
               case 17:
@@ -162,85 +162,72 @@ var Connection = exports.Connection = function () {
                 responseData = _context.sent;
 
                 responseObj = commandRequest.createResponse(responseData);
-                _context.next = 44;
+                _context.next = 43;
                 break;
 
               case 38:
                 _context.prev = 38;
                 _context.t3 = _context['catch'](31);
-
-                console.log(_context.t3.stack);
-                _context.next = 43;
+                _context.next = 42;
                 return this.sendError(messageId, _context.t3);
 
-              case 43:
+              case 42:
                 return _context.abrupt('return', _context.sent);
 
-              case 44:
-                _context.prev = 44;
-                _context.next = 47;
+              case 43:
+                _context.next = 45;
                 return this.sendMessage(messageId, responseObj, _constants.CALLRESULT_MESSAGE);
 
-              case 47:
-                _context.next = 53;
-                break;
+              case 45:
+                return _context.abrupt('break', 61);
 
-              case 49:
-                _context.prev = 49;
-                _context.t4 = _context['catch'](44);
-                _context.next = 53;
-                return this.sendError(messageId, _context.t4);
-
-              case 53:
-                return _context.abrupt('break', 69);
-
-              case 54:
+              case 46:
                 // response
                 debug('>> ' + this.url + ': ' + message);
 
                 _requests$messageId = (0, _slicedToArray3.default)(this.requests[messageId], 1), responseCallback = _requests$messageId[0];
 
                 if (responseCallback) {
-                  _context.next = 58;
+                  _context.next = 50;
                   break;
                 }
 
                 throw new Error('Response for unknown message ' + messageId);
 
-              case 58:
+              case 50:
                 delete this.requests[messageId];
 
                 responseCallback(commandNameOrPayload);
-                return _context.abrupt('break', 69);
+                return _context.abrupt('break', 61);
 
-              case 61:
+              case 53:
                 // error response
                 debug('>> ' + this.url + ': ' + message);
 
                 if (this.requests[messageId]) {
-                  _context.next = 64;
+                  _context.next = 56;
                   break;
                 }
 
                 throw new Error('Response for unknown message ' + messageId);
 
-              case 64:
+              case 56:
                 _requests$messageId2 = (0, _slicedToArray3.default)(this.requests[messageId], 2), rejectCallback = _requests$messageId2[1];
 
                 delete this.requests[messageId];
 
                 rejectCallback(new _ocppError2.default(commandNameOrPayload, commandPayload, errorDetails));
-                return _context.abrupt('break', 69);
+                return _context.abrupt('break', 61);
 
-              case 68:
+              case 60:
                 throw new Error('Wrong message type ' + messageType);
 
-              case 69:
+              case 61:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 11], [22, 26], [31, 38], [44, 49]]);
+        }, _callee, this, [[1, 11], [22, 26], [31, 38]]);
       }));
 
       function onMessage(_x2) {

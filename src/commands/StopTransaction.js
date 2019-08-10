@@ -82,7 +82,7 @@ export const UNIT_KVAR = 'kvar';
 export const UNIT_A = 'A';
 export const UNIT_V = 'V';
 export const UNIT_K = 'K';
-export const UNIT_CELCIUS = 'Celcius';
+export const UNIT_CELCIUS = 'Celsius';
 export const UNIT_FAHRENHEIT = 'Fahrenheit';
 export const UNIT_PERCENT = 'Percent';
 

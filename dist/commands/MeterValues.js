@@ -101,7 +101,7 @@ var UNIT_KVAR = exports.UNIT_KVAR = 'kvar';
 var UNIT_A = exports.UNIT_A = 'A';
 var UNIT_V = exports.UNIT_V = 'V';
 var UNIT_K = exports.UNIT_K = 'K';
-var UNIT_CELCIUS = exports.UNIT_CELCIUS = 'Celcius';
+var UNIT_CELCIUS = exports.UNIT_CELCIUS = 'Celsius';
 var UNIT_FAHRENHEIT = exports.UNIT_FAHRENHEIT = 'Fahrenheit';
 var UNIT_PERCENT = exports.UNIT_PERCENT = 'Percent';
 
