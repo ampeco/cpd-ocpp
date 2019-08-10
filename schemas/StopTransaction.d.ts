@@ -77,7 +77,7 @@ export interface StopTransactionRequest {
             | "A"
             | "V"
             | "K"
-            | "Celcius"
+            | "Celsius"
             | "Fahrenheit"
             | "Percent";
           [k: string]: any;
