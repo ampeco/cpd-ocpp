@@ -9,15 +9,15 @@
         },
         "chargePointModel": {
             "type": "string",
-            "maxLength": 20
+            "maxLength": 30
         },
         "chargePointSerialNumber": {
             "type": "string",
-            "maxLength": 30
+            "maxLength": 50
         },
         "chargeBoxSerialNumber": {
             "type": "string",
-            "maxLength": 30
+            "maxLength": 50
         },
         "firmwareVersion": {
             "type": "string",
@@ -37,7 +37,7 @@
         },
         "meterSerialNumber": {
             "type": "string",
-            "maxLength": 30
+            "maxLength": 50
         }
     },
     "additionalProperties": false,
