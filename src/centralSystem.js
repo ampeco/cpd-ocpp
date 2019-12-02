@@ -1,16 +1,13 @@
 import WebSocket from 'ws';
 import debugFn from 'debug';
-import { Connection } from './connection';
-import {
-  DEBUG_LIBNAME,
-  OCPP_PROTOCOL_1_6
-} from './constants';
+import {Connection} from './connection';
+import {DEBUG_LIBNAME, OCPP_PROTOCOL_1_6} from './constants';
 import CentralSystemClient from './centralSystemClient';
 
 const debug = debugFn(DEBUG_LIBNAME);
 
 export default class CentralSystem {
-  constructor (options) {
+  constructor(options) {
     this.options = options || {};
     this.clients = [];
   }
@@ -24,7 +21,7 @@ export default class CentralSystem {
       port,
       host,
       handleProtocols: (protocols, req) => {
-        if (protocols.indexOf(OCPP_PROTOCOL_1_6) === -1) {
+        if (protocols.map(proto => proto.toLowerCase()).indexOf(OCPP_PROTOCOL_1_6) === -1) {
           return '';
         }
         return OCPP_PROTOCOL_1_6;
