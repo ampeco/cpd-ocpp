@@ -70,12 +70,13 @@ var CentralSystem = function () {
         port: port,
         host: host,
         handleProtocols: function handleProtocols(protocols, req) {
-          if (protocols.map(function (proto) {
+          var location = protocols.map(function (proto) {
             return proto.toLowerCase();
-          }).indexOf(_constants.OCPP_PROTOCOL_1_6) === -1) {
+          }).indexOf(_constants.OCPP_PROTOCOL_1_6);
+          if (location === -1) {
             return '';
           }
-          return _constants.OCPP_PROTOCOL_1_6;
+          return protocols[location];
         },
         verifyClient: function () {
           var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(info, cb) {

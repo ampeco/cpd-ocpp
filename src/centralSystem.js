@@ -21,10 +21,11 @@ export default class CentralSystem {
       port,
       host,
       handleProtocols: (protocols, req) => {
-        if (protocols.map(proto => proto.toLowerCase()).indexOf(OCPP_PROTOCOL_1_6) === -1) {
+        let location = protocols.map(proto => proto.toLowerCase()).indexOf(OCPP_PROTOCOL_1_6);
+        if (location === -1) {
           return '';
         }
-        return OCPP_PROTOCOL_1_6;
+        return protocols[location];
       },
       verifyClient: async (info, cb) => {
         const isAccept = await validateConnection(info.req.url);
