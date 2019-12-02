@@ -70,7 +70,9 @@ var CentralSystem = function () {
         port: port,
         host: host,
         handleProtocols: function handleProtocols(protocols, req) {
-          if (protocols.indexOf(_constants.OCPP_PROTOCOL_1_6) === -1) {
+          if (protocols.map(function (proto) {
+            return proto.toLowerCase();
+          }).indexOf(_constants.OCPP_PROTOCOL_1_6) === -1) {
             return '';
           }
           return _constants.OCPP_PROTOCOL_1_6;
