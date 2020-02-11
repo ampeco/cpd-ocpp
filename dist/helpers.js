@@ -8,6 +8,10 @@ var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
 
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
 var _defineProperties = require('babel-runtime/core-js/object/define-properties');
 
 var _defineProperties2 = _interopRequireDefault(_defineProperties);
@@ -82,7 +86,7 @@ function applyPropertiesValidators(object, schema) {
         error = _Joi$validate.error;
 
     if (error !== null) {
-      throw new Error('Invalid value "' + value + '" for field ' + fieldName);
+      throw new Error('Invalid value "' + (0, _stringify2.default)(value) + '" for field ' + fieldName + '. ' + error);
     }
   }
 }

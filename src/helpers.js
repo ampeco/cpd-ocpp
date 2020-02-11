@@ -36,7 +36,7 @@ function applyPropertiesValidators (object, schema, values = {}) {
   function validate (fieldName, value, schema) {
     const { error } = Joi.validate(value, schema);
     if (error !== null) {
-      throw new Error(`Invalid value "${value}" for field ${fieldName}`);
+      throw new Error(`Invalid value "${JSON.stringify(value)}" for field ${fieldName}. ${error}`);
     }
   }
 }
