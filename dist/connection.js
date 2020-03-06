@@ -120,7 +120,7 @@ var Connection = exports.Connection = function () {
 
               case 14:
                 _context.t1 = messageType;
-                _context.next = _context.t1 === _constants.CALL_MESSAGE ? 17 : _context.t1 === _constants.CALLRESULT_MESSAGE ? 46 : _context.t1 === _constants.CALLERROR_MESSAGE ? 53 : 60;
+                _context.next = _context.t1 === _constants.CALL_MESSAGE ? 17 : _context.t1 === _constants.CALLRESULT_MESSAGE ? 46 : _context.t1 === _constants.CALLERROR_MESSAGE ? 55 : 62;
                 break;
 
               case 17:
@@ -179,50 +179,58 @@ var Connection = exports.Connection = function () {
                 return this.sendMessage(messageId, responseObj, _constants.CALLRESULT_MESSAGE);
 
               case 45:
-                return _context.abrupt('break', 61);
+                return _context.abrupt('break', 63);
 
               case 46:
                 // response
                 debug('>> ' + this.url + ': ' + message);
 
-                _requests$messageId = (0, _slicedToArray3.default)(this.requests[messageId], 1), responseCallback = _requests$messageId[0];
-
-                if (responseCallback) {
-                  _context.next = 50;
+                if (this.requests[messageId]) {
+                  _context.next = 49;
                   break;
                 }
 
-                throw new Error('Response for unknown message ' + messageId);
+                throw new Error('Response for unknown message ' + messageId + ' @ ' + this.url + ' ' + message);
 
-              case 50:
+              case 49:
+                _requests$messageId = (0, _slicedToArray3.default)(this.requests[messageId], 1), responseCallback = _requests$messageId[0];
+
+                if (responseCallback) {
+                  _context.next = 52;
+                  break;
+                }
+
+                throw new Error('Response for unknown message ' + messageId + ' @ ' + this.url + ' ' + message);
+
+              case 52:
                 delete this.requests[messageId];
 
                 responseCallback(commandNameOrPayload);
-                return _context.abrupt('break', 61);
+                return _context.abrupt('break', 63);
 
-              case 53:
+              case 55:
                 // error response
                 debug('>> ' + this.url + ': ' + message);
 
                 if (this.requests[messageId]) {
-                  _context.next = 56;
+                  _context.next = 58;
                   break;
                 }
 
-                throw new Error('Response for unknown message ' + messageId);
+                throw new Error('Response for unknown message ' + messageId + ' @ ' + this.url + ' ' + message);
 
-              case 56:
+              case 58:
                 _requests$messageId2 = (0, _slicedToArray3.default)(this.requests[messageId], 2), rejectCallback = _requests$messageId2[1];
 
                 delete this.requests[messageId];
 
                 rejectCallback(new _ocppError2.default(commandNameOrPayload, commandPayload, errorDetails));
-                return _context.abrupt('break', 61);
+                return _context.abrupt('break', 63);
 
-              case 60:
-                throw new Error('Wrong message type ' + messageType);
+              case 62:
+                throw new Error('Wrong message type ' + messageType + ' @ ' + this.url);
 
-              case 61:
+              case 63:
               case 'end':
                 return _context.stop();
             }
