@@ -2,31 +2,21 @@ import uuid from 'uuid/v4';
 import Websocket from 'ws';
 import debugFn from 'debug';
 import commands from './commands';
-import {
-  DEBUG_LIBNAME,
-  CALL_MESSAGE,
-  CALLRESULT_MESSAGE,
-  CALLERROR_MESSAGE,
-  SOCKET_TIMEOUT
-} from './constants';
-import { getObjectValues } from './helpers';
-import OCPPError, {
-  ERROR_FORMATIONVIOLATION,
-  ERROR_INTERNALERROR
-} from './ocppError';
+import {CALL_MESSAGE, CALLERROR_MESSAGE, CALLRESULT_MESSAGE, DEBUG_LIBNAME, SOCKET_TIMEOUT} from './constants';
+import {getObjectValues} from './helpers';
+import OCPPError, {ERROR_FORMATIONVIOLATION, ERROR_INTERNALERROR} from './ocppError';
 
 const debug = debugFn(DEBUG_LIBNAME);
 
-export
-class Connection {
-  constructor (socket, req = null) {
+export class Connection {
+  constructor(socket, req = null) {
     this.socket = socket;
     this.req = req;
     this.requests = {};
 
     if (req) {
       this.url = req && req.url;
-      const ip = req && ((req.connection && req.connection.remoteAddress) || req.headers[ 'x-forwarded-for' ]);
+      const ip = req && ((req.connection && req.connection.remoteAddress) || req.headers['x-forwarded-for']);
 
       debug(`New connection from "${ip}", protocol "${socket.protocol}", url "${this.url}"`);
     } else {
@@ -84,9 +74,12 @@ class Connection {
         // response
         debug(`>> ${this.url}: ${message}`);
 
+        if (!this.requests[messageId]) {
+          throw new Error(`Response for unknown message ${messageId} @ ${this.url} ${message}`);
+        }
         const [responseCallback] = this.requests[messageId];
         if (!responseCallback) {
-          throw new Error(`Response for unknown message ${messageId}`);
+          throw new Error(`Response for unknown message ${messageId} @ ${this.url} ${message}`);
         }
         delete this.requests[messageId];
 
@@ -97,7 +90,7 @@ class Connection {
         debug(`>> ${this.url}: ${message}`);
 
         if (!this.requests[messageId]) {
-          throw new Error(`Response for unknown message ${messageId}`);
+          throw new Error(`Response for unknown message ${messageId} @ ${this.url} ${message}`);
         }
         const [, rejectCallback] = this.requests[messageId];
         delete this.requests[messageId];
@@ -105,7 +98,7 @@ class Connection {
         rejectCallback(new OCPPError(commandNameOrPayload, commandPayload, errorDetails));
         break;
       default:
-        throw new Error(`Wrong message type ${messageType}`);
+        throw new Error(`Wrong message type ${messageType} @ ${this.url}`);
     }
   }
 
