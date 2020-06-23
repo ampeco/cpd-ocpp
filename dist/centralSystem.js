@@ -136,13 +136,13 @@ var CentralSystem = function () {
         console.info(err, socket.readyState);
       });
 
-      if (!socket.protocol) {
-        // From Spec: If the Central System does not agree to using one of the subprotocols offered by the client,
-        // it MUST complete the WebSocket handshake with a response without a Sec-WebSocket-Protocol header and then
-        // immediately close the WebSocket connection.
-        debug('Close connection due to unsupported protocol');
-        return socket.close();
-      }
+      // if (!socket.protocol) {
+      //   // From Spec: If the Central System does not agree to using one of the subprotocols offered by the client,
+      //   // it MUST complete the WebSocket handshake with a response without a Sec-WebSocket-Protocol header and then
+      //   // immediately close the WebSocket connection.
+      //   debug(`Close connection due to unsupported protocol`);
+      //   return socket.close();
+      // }
 
       var connection = new _connection.Connection(socket, req);
 
