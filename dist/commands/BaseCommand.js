@@ -28,7 +28,9 @@ var BaseCommand = function () {
 
     this[RESPONSE_SCHEMA_SYMBOL] = responseSchema;
 
-    (0, _helpers.applyPropertiesValidators)(this, requestSchema, values);
+    if (requestSchema) {
+      (0, _helpers.applyPropertiesValidators)(this, requestSchema, values);
+    }
   }
 
   (0, _createClass3.default)(BaseCommand, [{
@@ -39,9 +41,12 @@ var BaseCommand = function () {
   }, {
     key: 'createResponse',
     value: function createResponse(payload) {
-      var response = new function () {}();
+      var response = new function () {
+      }();
 
-      (0, _helpers.applyPropertiesValidators)(response, this[RESPONSE_SCHEMA_SYMBOL], payload);
+      if (this[RESPONSE_SCHEMA_SYMBOL]) {
+        (0, _helpers.applyPropertiesValidators)(response, this[RESPONSE_SCHEMA_SYMBOL], payload);
+      }
 
       return response;
     }
