@@ -8,6 +8,10 @@ var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
+var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -67,7 +71,7 @@ var CentralSystem = function () {
       this.port = port;
 
       var validateConnection = this.options.validateConnection || function () {
-        return true;
+        return [true];
       };
 
       var wsOptions = (0, _extends3.default)({
@@ -84,7 +88,8 @@ var CentralSystem = function () {
         },
         verifyClient: function () {
           var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(info, cb) {
-            var user, isAccept;
+            var user, _ref2, _ref3, isAccept, code, message;
+
             return _regenerator2.default.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -94,14 +99,24 @@ var CentralSystem = function () {
                     return validateConnection(info.req.url, user, info.req.headers['x-forwarded-proto'] || info.secure ? 'https' : 'http');
 
                   case 3:
-                    isAccept = _context.sent;
+                    _ref2 = _context.sent;
+                    _ref3 = (0, _slicedToArray3.default)(_ref2, 3);
+                    isAccept = _ref3[0];
+                    code = _ref3[1];
+                    message = _ref3[2];
 
 
+                    if (!code) {
+                      code = 404;
+                    }
+                    if (!message) {
+                      message = 'Central System does not recognize the charge point identifier in the URL path';
+                    }
                     debug('Request for connect "' + info.req.url + '" (' + info.req.headers['sec-websocket-protocol'] + ') - ' + (isAccept ? 'Valid identifier' : 'Invalid identifier'));
 
-                    cb(isAccept, 404, 'Central System does not recognize the charge point identifier in the URL path');
+                    cb(isAccept, code, message);
 
-                  case 6:
+                  case 12:
                   case 'end':
                     return _context.stop();
                 }
@@ -167,7 +182,7 @@ var CentralSystem = function () {
   }, {
     key: 'onRequest',
     value: function () {
-      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(client, command) {
+      var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(client, command) {
         return _regenerator2.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -180,7 +195,7 @@ var CentralSystem = function () {
       }));
 
       function onRequest(_x5, _x6) {
-        return _ref2.apply(this, arguments);
+        return _ref4.apply(this, arguments);
       }
 
       return onRequest;

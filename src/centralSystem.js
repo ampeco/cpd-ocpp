@@ -17,7 +17,7 @@ export default class CentralSystem {
   listen (port = 9220, host = null) {
     this.port = port;
 
-    const validateConnection = this.options.validateConnection || (() => true);
+    const validateConnection = this.options.validateConnection || (() => [true]);
 
     const wsOptions = {
       port,
@@ -31,11 +31,17 @@ export default class CentralSystem {
       },
       verifyClient: async (info, cb) => {
         const user = auth(info.req);
-        const isAccept = await validateConnection(info.req.url, user, info.req.headers['x-forwarded-proto'] || info.secure ? 'https' : 'http');
+        let [isAccept, code, message] = await validateConnection(info.req.url, user, info.req.headers['x-forwarded-proto'] || info.secure ? 'https' : 'http');
 
+        if (!code){
+          code = 404;
+        }
+        if (!message){
+          message = 'Central System does not recognize the charge point identifier in the URL path';
+        }
         debug(`Request for connect "${info.req.url}" (${info.req.headers['sec-websocket-protocol']}) - ${isAccept ? 'Valid identifier' : 'Invalid identifier'}`);
 
-        cb(isAccept, 404, 'Central System does not recognize the charge point identifier in the URL path');
+        cb(isAccept, code, message);
       },
       ...(this.options.wsOptions || {})
     };
