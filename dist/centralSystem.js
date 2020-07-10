@@ -96,7 +96,7 @@ var CentralSystem = function () {
                   case 0:
                     user = (0, _basicAuth2.default)(info.req);
                     _context.next = 3;
-                    return validateConnection(info.req.url, user, info.req.headers['x-forwarded-proto'] || info.secure ? 'https' : 'http');
+                    return validateConnection(info.req.url, user, info.req.headers['x-forwarded-proto'] || 'http');
 
                   case 3:
                     _ref2 = _context.sent;

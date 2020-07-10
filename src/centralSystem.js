@@ -31,7 +31,7 @@ export default class CentralSystem {
       },
       verifyClient: async (info, cb) => {
         const user = auth(info.req);
-        let [isAccept, code, message] = await validateConnection(info.req.url, user, info.req.headers['x-forwarded-proto'] || info.secure ? 'https' : 'http');
+        let [isAccept, code, message] = await validateConnection(info.req.url, user, info.req.headers['x-forwarded-proto'] || 'http');
 
         if (!code){
           code = 404;
