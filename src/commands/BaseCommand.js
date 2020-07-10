@@ -1,4 +1,4 @@
-import { applyPropertiesValidators } from '../helpers';
+import {applyPropertiesValidators} from '../helpers';
 
 const RESPONSE_SCHEMA_SYMBOL = Symbol('responseSchema');
 
@@ -7,7 +7,9 @@ class BaseCommand {
   constructor (requestSchema, responseSchema, values) {
     this[RESPONSE_SCHEMA_SYMBOL] = responseSchema;
 
-    applyPropertiesValidators(this, requestSchema, values);
+    if (requestSchema) {
+      applyPropertiesValidators(this, requestSchema, values);
+    }
   }
 
   getCommandName () {
@@ -15,9 +17,12 @@ class BaseCommand {
   }
 
   createResponse (payload) {
-    const response = new function () {}();
+    const response = new function () {
+    }();
 
-    applyPropertiesValidators(response, this[RESPONSE_SCHEMA_SYMBOL], payload);
+    if (this[RESPONSE_SCHEMA_SYMBOL]) {
+      applyPropertiesValidators(response, this[RESPONSE_SCHEMA_SYMBOL], payload);
+    }
 
     return response;
   }

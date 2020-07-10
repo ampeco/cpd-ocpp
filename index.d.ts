@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as WebSocket from 'ws';
-import { Request } from 'express';
+import {Request} from 'express';
 import * as Schemas from './schemas/';
 
 export class OCPPConnector {
@@ -35,7 +35,9 @@ export enum MessageType {
 }
 
 export class BaseCommand {
-    getCommandName(): string;
+  constructor(requestSchema: any, responseSchema: any, values: any);
+
+  getCommandName(): string;
 }
 
 export class BaseResponse {
