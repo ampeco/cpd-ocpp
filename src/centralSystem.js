@@ -31,7 +31,7 @@ export default class CentralSystem {
       },
       verifyClient: async (info, cb) => {
         const user = auth(info.req);
-        const isAccept = await validateConnection(info.req.url, user);
+        const isAccept = await validateConnection(info.req.url, user, info.req.headers['x-forwarded-proto'] || info.secure ? 'https' : 'http');
 
         debug(`Request for connect "${info.req.url}" (${info.req.headers['sec-websocket-protocol']}) - ${isAccept ? 'Valid identifier' : 'Invalid identifier'}`);
 

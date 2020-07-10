@@ -65,7 +65,7 @@ export class OCPPConnection {
 }
 
 export interface OCPPCentralSystemOptions {
-    validateConnection: (url: string, user: {name: string, pass:string}|undefined) => Promise<boolean>;
+    validateConnection: (url: string, credentials: {name: string, pass:string}|undefined, protocol: 'http'|'https') => Promise<boolean>;
     wsOptions: WebSocket.ServerOptions;
 }
 
