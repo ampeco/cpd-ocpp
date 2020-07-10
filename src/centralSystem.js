@@ -30,7 +30,8 @@ export default class CentralSystem {
         return protocols[location];
       },
       verifyClient: async (info, cb) => {
-        const isAccept = await validateConnection(info.req.url);
+        const user = auth(info.req);
+        const isAccept = await validateConnection(info.req.url, user);
 
         debug(`Request for connect "${info.req.url}" (${info.req.headers['sec-websocket-protocol']}) - ${isAccept ? 'Valid identifier' : 'Invalid identifier'}`);
 

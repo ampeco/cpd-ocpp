@@ -84,15 +84,16 @@ var CentralSystem = function () {
         },
         verifyClient: function () {
           var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(info, cb) {
-            var isAccept;
+            var user, isAccept;
             return _regenerator2.default.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
-                    _context.next = 2;
-                    return validateConnection(info.req.url);
+                    user = (0, _basicAuth2.default)(info.req);
+                    _context.next = 3;
+                    return validateConnection(info.req.url, user);
 
-                  case 2:
+                  case 3:
                     isAccept = _context.sent;
 
 
@@ -100,7 +101,7 @@ var CentralSystem = function () {
 
                     cb(isAccept, 404, 'Central System does not recognize the charge point identifier in the URL path');
 
-                  case 5:
+                  case 6:
                   case 'end':
                     return _context.stop();
                 }
