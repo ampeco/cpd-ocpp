@@ -40,6 +40,10 @@ var _centralSystemClient = require('./centralSystemClient');
 
 var _centralSystemClient2 = _interopRequireDefault(_centralSystemClient);
 
+var _basicAuth = require('basic-auth');
+
+var _basicAuth2 = _interopRequireDefault(_basicAuth);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var debug = (0, _debug2.default)(_constants.DEBUG_LIBNAME);

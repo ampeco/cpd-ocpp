@@ -4,6 +4,8 @@ import {Connection} from './connection';
 import {DEBUG_LIBNAME, OCPP_PROTOCOL_1_6} from './constants';
 import CentralSystemClient from './centralSystemClient';
 
+import auth from 'basic-auth';
+
 const debug = debugFn(DEBUG_LIBNAME);
 
 export default class CentralSystem {
