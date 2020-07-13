@@ -39,7 +39,7 @@ export default class CentralSystem {
         if (!message){
           message = 'Central System does not recognize the charge point identifier in the URL path';
         }
-        debug(`Request for connect "${info.req.url}" (${info.req.headers['sec-websocket-protocol']}) - ${isAccept ? 'Valid identifier' : 'Invalid identifier'}`);
+        debug(`Request for connect "${info.req.url}" (${info.req.headers['sec-websocket-protocol']}) - ${isAccept ? 'Valid identifier' : 'Invalid identifier'}. Headers: ${JSON.stringify(info.req.headers)}`);
 
         cb(isAccept, code, message);
       },

@@ -25,9 +25,7 @@ var _commands = require('./commands');
 
 var _commands2 = _interopRequireDefault(_commands);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {default: obj};
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.ChargePoint = _chargePoint2.default;
 exports.CentralSystem = _centralSystem2.default;

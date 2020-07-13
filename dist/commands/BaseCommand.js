@@ -41,8 +41,7 @@ var BaseCommand = function () {
   }, {
     key: 'createResponse',
     value: function createResponse(payload) {
-      var response = new function () {
-      }();
+      var response = new function () {}();
 
       if (this[RESPONSE_SCHEMA_SYMBOL]) {
         (0, _helpers.applyPropertiesValidators)(response, this[RESPONSE_SCHEMA_SYMBOL], payload);
