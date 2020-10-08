@@ -4,8 +4,7 @@
     "type": "object",
     "properties": {
         "location": {
-            "type": "string",
-            "format": "uri"
+            "type": "string"
         },
         "retries": {
             "type": "number"
