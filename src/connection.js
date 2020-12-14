@@ -74,10 +74,15 @@ export class Connection {
         // response
         debug(`>> ${this.url}: ${message}`);
 
-        if (!this.requests[messageId]) {
+        const request = this.requests[messageId];
+        if (!request) {
           throw new Error(`Response for unknown message ${messageId} @ ${this.url} ${message}`);
         }
-        const [responseCallback] = this.requests[messageId];
+        if (!Array.isArray(request) || request.length <= 0){
+          debug(request);
+          throw new Error(`Response for unknown message ${messageId} @ ${this.url} ${message}. The callback array is invalid`);
+        }
+        const [responseCallback] = request;
         if (!responseCallback) {
           throw new Error(`Response for unknown message ${messageId} @ ${this.url} ${message}`);
         }
@@ -156,7 +161,7 @@ export class Connection {
         return resolve(response);
       }
       function onRejectResponse(reason) {
-        self.requests[messageId] = () => {};
+        self.requests[messageId] = [() => {}];
         const error = reason instanceof OCPPError ? reason : new Error(reason);
         reject(error);
       }

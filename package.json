@@ -1,6 +1,6 @@
 {
   "name": "@ampeco/ocpp-eliftech",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "OCPP 1.6: Open Charge Point Protocol",
   "main": "dist/index.js",
   "scripts": {
